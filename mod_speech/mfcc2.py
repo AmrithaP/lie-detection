@@ -6,8 +6,10 @@ from scipy.io import wavfile
 from python_speech_features import mfcc
 from python_speech_features import logfbank
 
-PATH_CLASSIFIER = r'./mod_speech/SVC.pkl'
-with open(PATH_CLASSIFIER, 'rb') as f:
+from constants import PATH_SVC
+
+
+with open(PATH_SVC, 'rb') as f:
     MODEL_SVC = pickle.load(f)
 
 

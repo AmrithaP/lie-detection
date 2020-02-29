@@ -6,6 +6,15 @@
 *.ipynb
 *.pkl
 *.xlsx
+frames/
+lie/
+dyn-img/
+pretrained_models/
+
+# Conda Environment file
+env.yml
+
+# Original Github Python .gitignore below
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -1,15 +1,19 @@
+
+import sys
+import argparse
+import time
+
 from scipy.spatial import distance as dist
+import imutils
 from imutils.video import FileVideoStream
 from imutils.video import VideoStream
 from imutils import face_utils
 import numpy as np
-import argparse
-import imutils
-import time
 import dlib
 import cv2
-import sys
 import ffmpeg 
+
+from constants import PATH_SHAPE_PREDICTOR
 
 def eye_aspect_ratio(eye):
     # compute the euclidean distances between the two sets of
@@ -33,11 +37,8 @@ def eye_aspect_ratio(eye):
 # the facial landmark predictor
 print("[INFO] loading facial landmark predictor...")
 
-# path_shape_predictor = r"C:\Users\HP\Desktop\GUI\LIE_DETECTION\shape_predictor_68_face_landmarks.dat"
-path_shape_predictor = r'./mod_blink/shape_predictor_68_face_landmarks.dat'
-
 detector = dlib.get_frontal_face_detector()
-predictor = dlib.shape_predictor(path_shape_predictor)
+predictor = dlib.shape_predictor(PATH_SHAPE_PREDICTOR)
 
 # grab the indexes of the facial landmarks for the left and
 # right eye, respectively
