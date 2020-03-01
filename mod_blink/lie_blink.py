@@ -57,7 +57,7 @@ def get_ear_from_video(video_path, analyse_time=15):
     fileStream = True
 
 
-    li=[]
+    li = []
 
     # loop over frames from the video stream
     t_end = time.time() + analyse_time

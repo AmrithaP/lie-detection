@@ -11,7 +11,6 @@ print('tf version:', tf.__version__)
 # Better to use 1.15.0, as 1.15.0 was used to create the trained model on Colab
 assert tf.__version__ == '1.15.0'
 
-
 # Global Constants being used
 IMAGE_DIM = (112, 112)
 IMAGE_DEPTH = 1
@@ -53,9 +52,7 @@ def get_emotion(dyn_image_path):
     print('*****' * 10)
     print()
 
-
     arr_timg = np.expand_dims(timg, axis=0)
-
 
     arr_pred = lmodel.predict(x=arr_timg)
     pred0 = arr_pred[0]
@@ -73,4 +70,3 @@ def get_emotion(dyn_image_path):
     print(final_pred)
 
     return final_pred
-

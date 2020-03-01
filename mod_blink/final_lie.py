@@ -53,7 +53,7 @@ time.sleep(1.0)
 li=[]
 
 # loop over frames from the video stream
-t_end = time.time()+30
+t_end = time.time() + 30
 while time.time() < t_end:
     
     # if this is a file video stream, then we need to check if
@@ -114,19 +114,14 @@ while time.time() < t_end:
 # do a bit of cleanup
 cv2.destroyAllWindows()
 vs.stop()
-li = sorted(li)
-l = len(li)
-if l%2 == 0:
-    thres = (li[l//2] + li[l//2+1])/2
-else:
-    thres = li[l//2]
+thres = np.median(li)
 
 # EAR = thres
 print(thres)
 
 
 
-EYE_AR_THRESH = round(thres,2)
+EYE_AR_THRESH = round(thres, 2)
 EYE_AR_CONSEC_FRAMES = 3
 
 # initialize the frame counters and the total number of blinks
@@ -225,9 +220,10 @@ while True:
     # if the `q` key was pressed, break from the loop
     if key == ord("q"):
         break
+
 print("BLINKS : ",TOTAL)
 
-if abs(TOTAL-26) > 7:
+if abs(TOTAL - 26) > 7:
     print("lie")
 else:
     print("truth")
