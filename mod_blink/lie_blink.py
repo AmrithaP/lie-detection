@@ -1,4 +1,3 @@
-
 import sys
 import argparse
 import time
@@ -30,7 +29,6 @@ def eye_aspect_ratio(eye):
 
     # return the eye aspect ratio
     return ear
- 
 
 
 # initialize dlib's face detector (HOG-based) and then create
@@ -45,7 +43,6 @@ predictor = dlib.shape_predictor(PATH_SHAPE_PREDICTOR)
 (lStart, lEnd) = face_utils.FACIAL_LANDMARKS_IDXS["left_eye"]
 (rStart, rEnd) = face_utils.FACIAL_LANDMARKS_IDXS["right_eye"]
 
-
 def get_ear_from_video(video_path, analyse_time=15):
     '''
     video_path: path to video file
@@ -56,14 +53,13 @@ def get_ear_from_video(video_path, analyse_time=15):
     #vs = VideoStream(src=0).start()
     fileStream = True
 
-
     li = []
 
     # loop over frames from the video stream
     t_end = time.time() + analyse_time
 
     while time.time() < t_end:
-        
+
         # if this is a file video stream, then we need to check if
         # there any more frames left in the buffer to process
         if fileStream and not vs.more():
@@ -108,7 +104,7 @@ def get_ear_from_video(video_path, analyse_time=15):
                 cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
             cv2.putText(frame, "SIT ERECT AND FACE CAMERA", (50, 80),
                 cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
-     
+
         # show the frame
 
         # if the `q` key was pressed, break from the loop
@@ -156,7 +152,6 @@ def get_blinks(video_path, ear_val):
 
     vs1 = FileVideoStream(video_path).start()
     fileStream = True
-    # time.sleep(2.0)
 
     # loop over frames from the video stream
     while True:
@@ -166,8 +161,7 @@ def get_blinks(video_path, ear_val):
             break
 
         # grab the frame from the threaded video file stream, resize
-        # it, and convert it to grayscale
-        # channels)
+        # it, and convert it to grayscale channels
         frame = vs1.read()
         if frame is None:
             break
@@ -190,11 +184,6 @@ def get_blinks(video_path, ear_val):
             leftEye = shape[lStart:lEnd]
             rightEye = shape[rStart:rEnd]
 
-            # print(f'left : {leftEye}')
-            # print(f'right: {rightEye}')
-            # if (leftEye[1][1] - leftEye[5][1]) < 1:
-            #     print(f'{time.time()} Blink Left')
-
             leftEAR = eye_aspect_ratio(leftEye)
             rightEAR = eye_aspect_ratio(rightEye)
 
@@ -213,8 +202,7 @@ def get_blinks(video_path, ear_val):
             if ear < EYE_AR_THRESH:
                 COUNTER += 1
 
-            # otherwise, the eye aspect ratio is not below the blink
-            # threshold
+            # otherwise, the eye aspect ratio is not below the blink threshold
             else:
                 # if the eyes were closed for a sufficient number of
                 # then increment the total number of blinks
@@ -231,11 +219,10 @@ def get_blinks(video_path, ear_val):
             cv2.putText(frame, "EAR: {:.2f}".format(ear), (300, 30),
                 cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
 
-
         # if the `q` key was pressed, break from the loop
         cv2.imshow("Result", frame)
         key = cv2.waitKey(1) & 0xFF
-     
+
         # if the `q` key was pressed, break from the loop
         if key == ord("q"):
             break
@@ -245,7 +232,6 @@ def get_blinks(video_path, ear_val):
     # vs.stop()
 
     return TOTAL # no of blinks
-
 
 def determine_truth_lie(blinks, BlinksPerMinute=26):
     '''
@@ -268,7 +254,7 @@ def main(filepath):
     "ip.avi"
 
     #path = 'ip_split.avi'
-    path = filepath #r"C:\Users\Mandar\Desktop\lie\full truth.mp4"
+    path = filepath
     #path = 'Blinking.mp4'
     dur = float(ffmpeg.probe(path)["streams"][0]["duration"])
     print("DURATION:",dur)
