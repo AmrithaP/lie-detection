@@ -25,6 +25,7 @@ def vid_to_aud(path_video, folder_wav):
 
     return path_wav
 
+
 def get_mfcc(path_wav):
     (rate,sig) = wavfile.read(path_wav)
     mfcc_feat  = mfcc(sig, rate, nfft=1103)
@@ -38,12 +39,14 @@ def get_mfcc(path_wav):
 
     return new_mfcc
 
+
 def get_decision(mfcc):
     Y_pred = MODEL_SVC.predict([mfcc])
     if(Y_pred==1):
         return 'truth'
     else:
         return 'lie'
+
 
 def main(filepath):
     path_video = filepath
@@ -58,5 +61,3 @@ def main(filepath):
     
     result = get_decision(mfcc)
     print(f'{os.path.basename(path_video)} is classified as {result}')
-
-

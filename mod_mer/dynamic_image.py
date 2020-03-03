@@ -227,7 +227,7 @@ def getNonLinearity(data):
 def rootExpandFMap(data):
     s = np.sign(data)
     y = np.sqrt(s * data)
-    return np.concatenate(y*(s==1), y*(s==-1))
+    return np.concatenate(y * (s == 1), y * (s == -1))
 
 
 def liblinearsvr(data, C, normD=2):

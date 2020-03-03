@@ -90,7 +90,7 @@ class VideoPlayer(QWidget):
         self.setLayout(layout)
 
 
-        f="Hello, "+name
+        f = "Hello, " + name
         self.mediaPlayer.setVideoOutput(videoWidget)
         self.mediaPlayer.stateChanged.connect(self.mediaStateChanged)
         self.mediaPlayer.positionChanged.connect(self.positionChanged)
