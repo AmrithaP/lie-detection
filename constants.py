@@ -12,3 +12,6 @@ PATH_SVC = './pretrained_models/SVC.pkl'
 
 # Blink
 PATH_SHAPE_PREDICTOR = './pretrained_models/shape_predictor_68_face_landmarks.dat'
+
+# Folders
+FOLDER_WAV = './wav'

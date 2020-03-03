@@ -23,23 +23,28 @@ from mod_speech import mfcc2
 from mod_blink import lie_blink
 
 class Ui_MainWindow(QWidget):
-    fileName=""
-    res=""
+    # fileName=""
+    # res=""
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 600)
+
+        self.res = 'res'
 
         self.mediaPlayer = QMediaPlayer(None, QMediaPlayer.VideoSurface)
 
 
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
+
         self.label_name = QtWidgets.QLabel(self.centralwidget)
         self.label_name.setGeometry(QtCore.QRect(150, 180, 55, 16))
         self.label_name.setObjectName("label_name")
+
         self.label_age = QtWidgets.QLabel(self.centralwidget)
         self.label_age.setGeometry(QtCore.QRect(150, 230, 55, 16))
         self.label_age.setObjectName("label_age")
+
         self.label_dob = QtWidgets.QLabel(self.centralwidget)
         self.label_dob.setGeometry(QtCore.QRect(150, 280, 55, 16))
         self.label_dob.setObjectName("label_dob")
@@ -47,11 +52,11 @@ class Ui_MainWindow(QWidget):
         self.le_name = QtWidgets.QLineEdit(self.centralwidget)
         self.le_name.setGeometry(QtCore.QRect(260, 180, 251, 22))
         self.le_name.setObjectName("le_name")
-        
 
         self.le_age = QtWidgets.QLineEdit(self.centralwidget)
         self.le_age.setGeometry(QtCore.QRect(260, 230, 251, 22))
         self.le_age.setObjectName("le_age")
+
         self.le_dob = QtWidgets.QLineEdit(self.centralwidget)
         self.le_dob.setGeometry(QtCore.QRect(260, 280, 251, 22))
         self.le_dob.setObjectName("le_dob")
@@ -60,28 +65,28 @@ class Ui_MainWindow(QWidget):
         self.btn_submit.setGeometry(QtCore.QRect(310, 410, 93, 28))
         self.btn_submit.setObjectName("btn_submit")
         self.btn_submit.clicked.connect(self.new_window)
-        # self.btn_submit.clicked.connect(self.run_code) #run all the algos
 
-        self.label_reg_form = QtWidgets.QLabel(self.centralwidget)
-        self.label_reg_form.setGeometry(QtCore.QRect(270, 50, 251, 61))
         font = QtGui.QFont()
         font.setPointSize(15)
         font.setBold(True)
         font.setUnderline(True)
         font.setWeight(75)
+
+        self.label_reg_form = QtWidgets.QLabel(self.centralwidget)
+        self.label_reg_form.setGeometry(QtCore.QRect(270, 50, 251, 61))
         self.label_reg_form.setFont(font)
         self.label_reg_form.setObjectName("label_reg_form")
-        self.label_5 = QtWidgets.QLabel(self.centralwidget)
-        self.label_5.setGeometry(QtCore.QRect(340, 440, 55, 16))
-        self.label_5.setText("")
-        self.label_5.setObjectName("label_5")
+
         self.label_upload_video = QtWidgets.QLabel(self.centralwidget)
         self.label_upload_video.setGeometry(QtCore.QRect(140, 330, 81, 16))
         self.label_upload_video.setObjectName("label_upload_video")
-        self.label_path_video = QtWidgets.QLabel(self.centralwidget)
-        self.label_path_video.setGeometry(QtCore.QRect(260, 330, 251, 16))
-        self.label_path_video.setText("")
-        self.label_path_video.setObjectName("label_path_video")
+
+
+        self.le_path_video = QtWidgets.QLineEdit(self.centralwidget)
+        self.le_path_video.setGeometry(QtCore.QRect(260, 330, 251, 22))
+        self.le_path_video.setText("test label path video")
+        self.le_path_video.setObjectName("le_path_video")
+        self.le_path_video.setReadOnly(True)
 
         self.btn_open_video = QtWidgets.QPushButton(self.centralwidget)
         self.btn_open_video.setGeometry(QtCore.QRect(530, 330, 93, 28))
@@ -90,12 +95,14 @@ class Ui_MainWindow(QWidget):
         self.btn_open_video.setObjectName("btn_open_video")
         self.btn_open_video.clicked.connect(self.abrir)
 
-        
+
         MainWindow.setCentralWidget(self.centralwidget)
+        
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 26))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
+
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
@@ -115,17 +122,15 @@ class Ui_MainWindow(QWidget):
         self.btn_open_video.setText(_translate("MainWindow", "Browse"))
 
     def abrir(self):
-        self.fileName, _ = QFileDialog.getOpenFileName(self, "Selecciona los mediose",
+        self.fileName, _ = QFileDialog.getOpenFileName(self, "Select the Video",
                 ".", "Video Files (*.mp4 *.flv *.ts *.mts *.avi)")
 
         if self.fileName != '':
             self.mediaPlayer.setMedia(
                     QMediaContent(QUrl.fromLocalFile(self.fileName)))
-            #self.playButton.setEnabled(True)
-            #print(fileName)
-            # f = self.fileName.split("/")[-1]
-            self.label_path_video.setText(self.fileName)
-            #self.play()
+
+            self.le_path_video.setText(self.fileName)
+
 
     def run_code(self, vplayer):
         print('run func started')
@@ -138,12 +143,10 @@ class Ui_MainWindow(QWidget):
 
     def new_window(self):
         
-        name=self.le_name.text()
+        name = self.le_name.text()
         full_path = self.fileName
         print('before VideoPlayer, res=', self.res)
         self.player = VideoPlayer(name, file_path=full_path)
-
-        
 
         self.player.setWindowTitle("Player")
         self.player.resize(900, 700)

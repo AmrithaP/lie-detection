@@ -6,7 +6,7 @@ from scipy.io import wavfile
 from python_speech_features import mfcc
 from python_speech_features import logfbank
 
-from constants import PATH_SVC
+from constants import PATH_SVC, FOLDER_WAV
 
 
 with open(PATH_SVC, 'rb') as f:
@@ -50,9 +50,11 @@ def get_decision(mfcc):
 
 def main(filepath):
     path_video = filepath
-    folder_wav = r'./wav'
 
-    path_wav = vid_to_aud(path_video, folder_wav)
+    if not os.path.exists(FOLDER_WAV):
+        os.makedirs(FOLDER_WAV)
+
+    path_wav = vid_to_aud(path_video, FOLDER_WAV)
     mfcc = get_mfcc(path_wav)
 
     print(f'Wav path: {path_wav}')
